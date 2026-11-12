@@ -1,0 +1,19 @@
+{
+  "name": "P8 Harum Manis",
+  "short_name": "P8 Harum Manis",
+  "description": "Produk Harumanis, makanan, minuman dan sistem inventori depot di Chuping, Perlis.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08130f",
+  "theme_color": "#08130f",
+  "lang": "ms",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

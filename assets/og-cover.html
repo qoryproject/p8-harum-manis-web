@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      font-family: 'Inter', sans-serif; color: #f2f7f1;
+      background:
+        radial-gradient(700px 500px at 82% 30%, rgba(16,185,129,.22), transparent 65%),
+        radial-gradient(500px 400px at 10% 90%, rgba(245,158,11,.12), transparent 65%),
+        #08130f;
+      display: flex; align-items: center; padding: 64px;
+    }
+    .copy { width: 620px; }
+    .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+    .mark {
+      width: 58px; height: 58px; border-radius: 16px; display: grid; place-items: center;
+      background: radial-gradient(90% 90% at 20% 10%, rgba(255,215,120,.6), transparent 55%), linear-gradient(145deg, #ffce6a, #f2a51f 45%, #10b981);
+      color: #082015; font-size: 18px; font-weight: 800;
+    }
+    .brand strong { font-size: 18px; letter-spacing: .02em; }
+    .brand strong em { font-style: normal; color: #ffb95f; }
+    .brand small { display: block; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: #9db3a7; margin-top: 3px; }
+    h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 62px; line-height: .98; letter-spacing: -.04em; margin: 0; }
+    h1 em { font-style: italic; color: #ffb95f; }
+    p { font-size: 18px; line-height: 1.55; color: #9db3a7; margin: 20px 0 0; max-width: 520px; }
+    .tags { display: flex; gap: 8px; margin-top: 26px; }
+    .tag { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #4edea3; border: 1px solid rgba(78,222,163,.3); background: rgba(78,222,163,.08); padding: 7px 10px; border-radius: 99px; }
+    .photo {
+      position: absolute; right: 54px; top: 70px; width: 430px; height: 490px; border-radius: 26px;
+      background: url('https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=900&q=80') center/cover;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 30px 80px -30px rgba(0,0,0,.8);
+    }
+    .photo::after { content: ''; position: absolute; inset: 0; border-radius: 26px; background: linear-gradient(180deg, transparent 40%, rgba(8,19,15,.85)); }
+    .badge { position: absolute; left: 20px; bottom: 20px; font-size: 10px; font-weight: 800; letter-spacing: .08em; color: #4edea3; background: rgba(8,19,15,.72); border: 1px solid rgba(78,222,163,.3); border-radius: 99px; padding: 8px 12px; backdrop-filter: blur(8px); }
+  </style>
+</head>
+<body>
+  <div class="copy">
+    <div class="brand"><div class="mark">P8</div><div><strong>P8 HARUM <em>MANIS</em></strong><small>Chuping · Perlis</small></div></div>
+    <h1>Harumanis segar.<br>Stok terkawal.<br><em>Untung bersih.</em></h1>
+    <p>Produk Harumanis, makanan & minuman dari Perlis — dengan sistem inventori FEFO, scan barcode dan P&L.</p>
+    <div class="tags"><span class="tag">FEFO</span><span class="tag">Scan Barcode</span><span class="tag">BM / English</span></div>
+  </div>
+  <div class="photo"><span class="badge">HARUMANIS ASLI</span></div>
+</body>
+</html>
