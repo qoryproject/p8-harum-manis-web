@@ -4,87 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
   <meta name="theme-color" content="#08130f">
-  <title>Sistem Inventori — P8 Harum Manis</title>
+  <title>Buka Sistem Inventori — P8 Harum Manis</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
-  <header class="appbar">
-    <a class="back" href="index.html" title="Kembali ke laman utama">
-      <span class="ms" aria-hidden="true">arrow_back</span>
-      <span class="back-label">Laman Utama</span>
-    </a>
-    <div class="appbar-brand">
-      <span class="brand-mark">P8</span>
-      <span><b>P8 HARUM <em>MANIS</em></b><small>Sistem Inventori</small></span>
-    </div>
-    <div class="appbar-actions">
-      <button class="icon-btn" type="button" id="reloadBtn" title="Muat semula" aria-label="Muat semula">
-        <span class="ms" aria-hidden="true">refresh</span>
-      </button>
-      <a class="icon-btn" id="externalBtn" href="#" target="_blank" rel="noopener" title="Buka dalam tab baharu" aria-label="Buka dalam tab baharu">
-        <span class="ms" aria-hidden="true">open_in_new</span>
-      </a>
-    </div>
-  </header>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
 
-  <div class="app-frame-wrap">
-    <div class="loader" id="loader">
-      <div class="loader-ring"></div>
-      <div class="loader-brand"><span class="brand-mark">P8</span></div>
-      <h1>Membuka sistem inventori…</h1>
-      <p>Jika diminta, log masuk dengan akaun Google yang telah didaftarkan.</p>
+  <main class="launch">
+    <div class="brand">
+      <span class="brand-mark">P8</span>
+      <span><b>P8 HARUM <em>MANIS</em></b><small>SISTEM INVENTORI</small></span>
     </div>
-    <iframe id="appFrame" title="Sistem Inventori P8 Harum Manis"
-      allow="camera; microphone; clipboard-write; fullscreen"
-      referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <div class="fallback" id="fallback">
+
+    <div class="icon"><span class="ms" aria-hidden="true">space_dashboard</span></div>
+
+    <h1>Buka Sistem Inventori</h1>
+    <p class="lead">Sistem dibuka dalam tab baharu supaya log masuk Google, kamera dan muat naik bukti berfungsi dengan lebih stabil.</p>
+
+    <a class="btn-primary" id="openSystem" href="#" target="_blank" rel="noopener">
       <span class="ms" aria-hidden="true">open_in_new</span>
-      <h2>Sistem tidak dapat dimuatkan dalam halaman ini.</h2>
-      <p>Buka sistem dalam tab baharu. Kamera juga lebih stabil di tab penuh.</p>
-      <a class="btn" id="fallbackLink" href="#" target="_blank" rel="noopener">Buka Sistem</a>
+      Buka Sistem Inventori
+    </a>
+    <a class="btn-secondary" href="index.html">
+      <span class="ms" aria-hidden="true">arrow_back</span>
+      Kembali ke Laman Utama
+    </a>
+
+    <div class="note">
+      <span class="ms" aria-hidden="true">info</span>
+      <p>Jika pautan tidak berfungsi, salin URL di bawah dan buka dalam pelayar.</p>
     </div>
-  </div>
+    <div class="url-box">
+      <input id="systemUrl" type="text" readonly value="">
+      <button type="button" id="copyBtn" title="Salin URL">Salin</button>
+    </div>
+
+    <div class="secure">
+      <span class="ms" aria-hidden="true">verified_user</span>
+      <span>Akses terhad kepada akaun Google yang telah didaftarkan.</span>
+    </div>
+  </main>
+
+  <footer class="launch-foot">
+    <span>P8 Harum Manis · Chuping, Perlis</span>
+    <span>Google Apps Script · Sheets · Drive</span>
+  </footer>
 
   <script src="config.js"></script>
   <script>
     (function () {
       var cfg = window.P8_CONFIG || {};
       var url = cfg.appUrl || '';
-      var frame = document.getElementById('appFrame');
-      var loader = document.getElementById('loader');
-      var fallback = document.getElementById('fallback');
-      var external = document.getElementById('externalBtn');
-      var fallbackLink = document.getElementById('fallbackLink');
-      var reload = document.getElementById('reloadBtn');
-
-      frame.addEventListener('load', function () {
-        setTimeout(function () { loader.classList.add('hidden'); }, 300);
-      });
-
+      var open = document.getElementById('openSystem');
+      var input = document.getElementById('systemUrl');
+      var copy = document.getElementById('copyBtn');
       if (url) {
-        external.href = url;
-        fallbackLink.href = url;
-        frame.src = url;
+        open.href = url;
+        input.value = url;
       } else {
-        loader.style.display = 'none';
-        fallback.style.display = 'flex';
+        open.href = 'index.html';
+        input.value = 'URL sistem belum dikonfigurasi dalam config.js';
       }
-
-      setTimeout(function () {
-        if (!loader.classList.contains('hidden')) {
-          loader.classList.add('hidden');
+      copy.addEventListener('click', function () {
+        if (!input.value) return;
+        input.select();
+        input.setSelectionRange(0, 99999);
+        try {
+          navigator.clipboard.writeText(input.value);
+          copy.textContent = 'Disalin';
+          setTimeout(function () { copy.textContent = 'Salin'; }, 1600);
+        } catch (e) {
+          document.execCommand('copy');
+          copy.textContent = 'Disalin';
         }
-      }, 7000);
-
-      reload.addEventListener('click', function () {
-        loader.classList.remove('hidden');
-        frame.src = url + (url.indexOf('?') > -1 ? '&' : '?') + 'r=' + Date.now();
       });
     })();
   </script>

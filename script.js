@@ -188,7 +188,11 @@
         else window.location.hash = '#hubungi';
       });
     });
-    $$('.app-link').forEach(a => { a.href = 'app.html'; });
+    $$('.app-link').forEach(a => {
+      a.href = CONFIG.appUrl || 'app.html';
+      a.target = '_blank';
+      a.rel = 'noopener';
+    });
     const year = $('#year');
     if (year) year.textContent = new Date().getFullYear();
   }

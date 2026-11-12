@@ -152,12 +152,18 @@ Laman sudah ada:
 
 ## 6. Sistem GAS dalam laman
 
-`app.html` memuatkan URL `/exec` dalam iframe penuh skrin.
+Butang **Buka Sistem** membuka URL `/exec` GAS dalam **tab baharu**.
+Ini lebih stabil daripada iframe kerana:
 
-- GAS sudah `XFrameOptionsMode.ALLOWALL`.
-- Iframe membenarkan `camera`, `microphone`, `clipboard-write`.
-- Ada butang **Buka dalam tab baharu** jika kamera disekat.
-- `app.html` `noindex` dan disekat dalam `robots.txt`.
+- Chrome/Safari boleh menyekat Google login dalam iframe.
+- Kamera lebih mudah dibenarkan dalam tab penuh.
+- Tiada ralat “Sorry, unable to open the file at present” daripada Google Drive.
+
+`app.html` ialah halaman pelancaran fallback dengan butang dan salinan URL.
+`app.html` `noindex` dan disekat dalam `robots.txt`.
+
+Jika anda mahu embed iframe juga, tambah semula iframe secara manual — tetapi
+tab baharu adalah cara yang disyorkan untuk produksi.
 
 ---
 
