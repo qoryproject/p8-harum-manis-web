@@ -6,9 +6,9 @@ BM/EN, responsif, SEO, sedia untuk **GitHub + Vercel**.
 
 ## Live
 
-- **GitHub Pages:** <https://qoryproject.github.io/p8-harum-manis-web/>
+- **Vercel (utama):** <https://p8-harum-manis.vercel.app/>
+- **GitHub Pages (sandaran):** <https://qoryproject.github.io/p8-harum-manis-web/>
 - **GitHub repo:** <https://github.com/qoryproject/p8-harum-manis-web>
-- **Vercel:** import repo `p8-harum-manis-web` (lihat bahagian 3).
 
 ## Struktur
 

@@ -7,7 +7,7 @@ window.P8_CONFIG = {
   appUrl: 'https://script.google.com/macros/s/AKfycbxNF5gpJyvnTslfvRBGBKiGKA8OogheisbU1IbzvhqoL1mfwuQgTCD-mYlQFZNENXkh/exec',
 
   // Domain/subdomain selepas deploy (contoh Netlify Drop)
-  siteUrl: 'https://qoryproject.github.io/p8-harum-manis-web',
+  siteUrl: 'https://p8-harum-manis.vercel.app',
 
   // Hubungi / pesanan
   whatsapp: '60123456789',

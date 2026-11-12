@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /app.html
 
-Sitemap: https://qoryproject.github.io/p8-harum-manis-web/sitemap.xml
+Sitemap: https://p8-harum-manis.vercel.app/sitemap.xml
