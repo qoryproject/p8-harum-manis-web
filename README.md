@@ -9,6 +9,8 @@ BM/EN, responsif, SEO, sedia untuk **GitHub + Vercel**.
 - **Vercel (utama):** <https://p8-harum-manis.vercel.app/>
 - **GitHub Pages (sandaran):** <https://qoryproject.github.io/p8-harum-manis-web/>
 - **GitHub repo:** <https://github.com/qoryproject/p8-harum-manis-web>
+- **Auto-deploy:** setiap `git push` ke `main` akan deploy semula ke Vercel
+  secara automatik (projek Vercel `p8-harum-manis` ↔ repo `p8-harum-manis-web`).
 
 ## Struktur
 
@@ -18,7 +20,7 @@ site/
 ├── styles.css
 ├── script.js           ← BM/EN, filter produk, reveal, WhatsApp
 ├── config.js           ← URL sistem, WhatsApp, e-mel, domain
-├── app.html            ← sistem GAS iframe penuh skrin
+├── app.html            ← halaman pelancar sistem (buka GAS dalam tab baharu)
 ├── app.css
 ├── vercel.json         ← config Vercel
 ├── .gitignore
