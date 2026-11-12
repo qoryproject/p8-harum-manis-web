@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://p8-harum-manis.netlify.app/</loc>
+    <loc>https://qoryproject.github.io/p8-harum-manis-web/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://p8-harum-manis.netlify.app/#produk</loc>
+    <loc>https://qoryproject.github.io/p8-harum-manis-web/#produk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://p8-harum-manis.netlify.app/#sistem</loc>
+    <loc>https://qoryproject.github.io/p8-harum-manis-web/#sistem</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://p8-harum-manis.netlify.app/#hubungi</loc>
+    <loc>https://qoryproject.github.io/p8-harum-manis-web/#hubungi</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

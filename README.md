@@ -4,6 +4,12 @@ Laman pemasaran + portal sistem inventori GAS.
 Reka bentuk custom: hero gelap, produk krim, emerald & mango amber.
 BM/EN, responsif, SEO, sedia untuk **GitHub + Vercel**.
 
+## Live
+
+- **GitHub Pages:** <https://qoryproject.github.io/p8-harum-manis-web/>
+- **GitHub repo:** <https://github.com/qoryproject/p8-harum-manis-web>
+- **Vercel:** import repo `p8-harum-manis-web` (lihat bahagian 3).
+
 ## Struktur
 
 ```
