@@ -10,9 +10,9 @@ window.P8_CONFIG = {
   siteUrl: 'https://p8-harum-manis.vercel.app',
 
   // Hubungi / pesanan
-  whatsapp: '60123456789',
-  email: 'hello@p8harumanis.com',
-  location: 'Chuping, Perlis, Malaysia',
+  whatsapp: '60173794337',
+  email: 'preightenterprise@gmail.com',
+  location: 'Jalan Harumanis, 01000 Perlis, Malaysia',
 
   // Nama paparan
   brand: 'P8 Harum Manis'

@@ -1,4 +1,4 @@
-/* P8 Harum Manis — public site interactions */
+﻿/* P8 Harum Manis — public site interactions */
 (function () {
   'use strict';
 
@@ -11,11 +11,11 @@
       'brand.tagline': 'Produk & Sistem Inventori',
       'nav.products': 'Produk', 'nav.why': 'Kelebihan', 'nav.system': 'Sistem',
       'nav.contact': 'Hubungi', 'nav.openApp': 'Buka Sistem',
-      'hero.eyebrow': 'HARUMANIS · PERLIS · SEJAK 2026',
-      'hero.title1': 'Harumanis segar.', 'hero.title2': 'Stok terkawal.', 'hero.title3': 'Untung bersih.',
-      'hero.sub': 'Produk Harumanis, makanan dan minuman dari Chuping — dengan sistem inventori yang memantau stok, batch FEFO, jualan dan untung bersih dalam satu tempat.',
+      'hero.eyebrow': 'PRECISION-8 · PERLIS · SEJAK 2026',
+      'hero.title1': 'Inovasi Produk', 'hero.title2': 'Hiliran Harumanis', 'hero.title3': 'Perlis.',
+      'hero.sub': 'Kejayaan berwawasan melalui pengedaran dan inovasi produk premium berasaskan Harumanis - menggabungkan kelembutan alam dengan teknologi moden.',
       'hero.cta1': 'Buka Sistem Inventori', 'hero.cta2': 'Lihat Produk',
-      'hero.trust1': 'Scan barcode', 'hero.trust2': 'FEFO automatik', 'hero.trust3': 'BM / English', 'hero.trust4': 'Cloud Google',
+      'hero.trust1': 'Carian produk', 'hero.trust2': 'FEFO automatik', 'hero.trust3': 'BM / English', 'hero.trust4': 'Cloud Google',
       'hero.badge': 'HARUMANIS ASLI', 'hero.float1': 'Stok fizikal', 'hero.float2': 'Batch terdekat',
       'hero.float3': 'Untung bersih', 'hero.days': 'hari',
       'stats.sku': 'SKU aktif', 'stats.months': 'bulan data', 'stats.lang': 'bahasa', 'stats.cloud': 'cloud',
@@ -53,11 +53,11 @@
       'brand.tagline': 'Products & Inventory System',
       'nav.products': 'Products', 'nav.why': 'Why us', 'nav.system': 'System',
       'nav.contact': 'Contact', 'nav.openApp': 'Open System',
-      'hero.eyebrow': 'HARUMANIS · PERLIS · SINCE 2026',
-      'hero.title1': 'Fresh Harumanis.', 'hero.title2': 'Stock in control.', 'hero.title3': 'Net profit.',
-      'hero.sub': 'Harumanis products, food and drinks from Chuping — with an inventory system that tracks stock, FEFO batches, sales and net profit in one place.',
+      'hero.eyebrow': 'PRECISION-8 · PERLIS · SINCE 2026',
+      'hero.title1': 'Downstream Product', 'hero.title2': 'Innovation', 'hero.title3': 'Harumanis Perlis.',
+      'hero.sub': 'A visionary journey through the distribution and innovation of premium Harumanis products - blending nature with modern technology.',
       'hero.cta1': 'Open Inventory System', 'hero.cta2': 'View Products',
-      'hero.trust1': 'Barcode scan', 'hero.trust2': 'Automatic FEFO', 'hero.trust3': 'BM / English', 'hero.trust4': 'Google Cloud',
+      'hero.trust1': 'Product search', 'hero.trust2': 'Automatic FEFO', 'hero.trust3': 'BM / English', 'hero.trust4': 'Google Cloud',
       'hero.badge': 'AUTHENTIC HARUMANIS', 'hero.float1': 'Physical stock', 'hero.float2': 'Nearest batch',
       'hero.float3': 'Net profit', 'hero.days': 'days',
       'stats.sku': 'active SKUs', 'stats.months': 'months of data', 'stats.lang': 'languages', 'stats.cloud': 'cloud',
