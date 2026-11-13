@@ -292,7 +292,24 @@
     });
   }
 
-  function fetchProducts(api, onDone) {    const cb = '__p8Products' + Date.now() + Math.floor(Math.random() * 1000);
+  function fetchProducts(api, onDone) {
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = setTimeout(function () { if (controller) controller.abort(); }, 18000);
+    fetch('/api/products?t=' + Date.now(), { cache: 'no-store', signal: controller ? controller.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        clearTimeout(timer);
+        if (data && data.ok && data.products) { onDone(data); return; }
+        jsonpProducts(api, onDone);
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        jsonpProducts(api, onDone);
+      });
+  }
+
+  function jsonpProducts(api, onDone) {
+    const cb = '__p8Products' + Date.now() + Math.floor(Math.random() * 1000);
     let finished = false;
     const finish = data => {
       if (finished) return;
