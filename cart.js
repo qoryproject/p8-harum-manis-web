@@ -249,7 +249,6 @@
 
   function mountBuyButtons() {
     $$('#productGrid .product-card[data-sku]').forEach(function (card) {
-      if ($('.js-buy', card)) return;
       var sku = card.dataset.sku;
       if (!sku) return;
       var name = (card.querySelector('h3') || {}).textContent || '';
@@ -257,15 +256,24 @@
       var price = Number(String(priceText).replace(/[^0-9.]/g, '')) || 0;
       var foot = card.querySelector('.product-foot');
       if (!foot) return;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'js-buy';
-      btn.innerHTML = '<span class="ms" aria-hidden="true">add_shopping_cart</span>' + T('Beli', 'Buy');
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        addItem(sku, name.trim(), price);
-      });
-      foot.appendChild(btn);
+      var out = card.classList.contains('is-out');
+      var btn = $('.js-buy', card);
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'js-buy';
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (btn.disabled) return;
+          addItem(sku, name.trim(), price);
+        });
+        foot.appendChild(btn);
+      }
+      btn.disabled = out;
+      btn.classList.toggle('is-disabled', out);
+      btn.innerHTML = out
+        ? '<span class="ms" aria-hidden="true">block</span>' + T('Habis', 'Sold out')
+        : '<span class="ms" aria-hidden="true">add_shopping_cart</span>' + T('Beli', 'Buy');
     });
   }
 
