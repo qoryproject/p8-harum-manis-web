@@ -186,6 +186,9 @@
     var m = $('#orderSuccess');
     if (!m) return;
     var bank = order.bayar || {};
+    var bankName = bank.bankName || CONFIG.bankName || '';
+    var bankAccount = bank.bankAccount || CONFIG.bankAccount || '';
+    var bankHolder = bank.bankHolder || CONFIG.bankHolder || '';
     var wa = String(CONFIG.whatsapp || '').replace(/[^0-9]/g, '');
     var text = T('Hai P8, saya sudah buat pesanan ', 'Hi P8, I placed order ') + order.orderId + T(' berjumlah ', ' totalling ') + money(order.total) + '.';
     m.innerHTML =
@@ -197,11 +200,11 @@
       '<p class="order-total">' + money(order.total) + ' · ' + (order.items || []).length + ' ' + T('item', 'items') + '</p>' +
       '<div class="order-bank">' +
       '<h4>' + T('Arahan bayaran', 'Payment instructions') + '</h4>' +
-      (bank.bankName || bank.bankAccount
-        ? '<p><span>' + T('Bank', 'Bank') + '</span><b>' + (bank.bankName || '—') + '</b></p>' +
-          '<p><span>' + T('No. akaun', 'Account no.') + '</span><b>' + (bank.bankAccount || '—') + '</b></p>' +
-          '<p><span>' + T('Nama akaun', 'Account name') + '</span><b>' + (bank.bankHolder || '—') + '</b></p>'
-        : '<p class="muted">' + T('Admin akan hubungi anda untuk arahan bayaran.', 'Admin will contact you with payment details.') + '</p>') +
+      (bankAccount
+        ? '<p><span>' + T('Bank', 'Bank') + '</span><b>' + (bankName || '—') + '</b></p>' +
+          '<p><span>' + T('No. akaun', 'Account no.') + '</span><b>' + bankAccount + '</b></p>' +
+          '<p><span>' + T('Nama akaun', 'Account name') + '</span><b>' + (bankHolder || '—') + '</b></p>'
+        : '<p class="muted">' + T('Admin akan hubungi anda melalui WhatsApp untuk arahan bayaran.', 'Admin will contact you on WhatsApp with payment details.') + '</p>') +
       '</div>' +
       '<p class="order-note">' + T('Stok telah ditolak. Pesanan akan dibatalkan automatik jika tiada bayaran dalam ' +
         (order.holdHours || 24) + ' jam.', 'Stock has been deducted. The order is cancelled automatically if unpaid within ' +
