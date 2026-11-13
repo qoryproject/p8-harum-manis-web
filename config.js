@@ -9,6 +9,18 @@ window.P8_CONFIG = {
   // API awam produk (deployment berasingan, akses "Anyone") — baca status & stok
   apiUrl: 'https://script.google.com/macros/s/AKfycbwr7XU1PvjtsIgoPdqv30mZRAt3vaVXHXfuoieSEPg0hHWbARzq_rgdYJERbvoN_-gt/exec',
 
+  // Token pesanan (mesti sama dengan WEB_ORDER_TOKEN dalam Kode.gs)
+  orderToken: 'P8WEB-hm26-x7k9q',
+
+  // Caj penghantaran laman web (RM)
+  shippingFee: 8,
+
+  // Maklumat bayaran yang dipaparkan selepas pesanan
+  bankName: 'Maybank',
+  bankAccount: '',
+  bankHolder: 'PRECISION 8 ENTERPRISE',
+
+
   // Domain/subdomain selepas deploy (contoh Netlify Drop)
   siteUrl: 'https://p8-harum-manis.vercel.app',
 

@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261114b">
+  <link rel="stylesheet" href="styles.css?v=20261114c">
   <script>document.documentElement.classList.add('js');</script>
 
   <script type="application/ld+json">
@@ -708,8 +708,52 @@
   <span class="ms" aria-hidden="true">chat</span>
 </a>
 
-<script src="config.js?v=20261114b"></script>
-<script src="script.js?v=20261114b"></script>
+<!-- TROLI & PESANAN -->
+<button class="cart-fab" id="cartFab" type="button" aria-label="Troli">
+  <span class="ms" aria-hidden="true">shopping_bag</span>
+  <span class="cart-count empty" id="cartCount">0</span>
+</button>
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <header class="cart-head">
+    <h2>Troli Anda</h2>
+    <button class="cart-close" id="cartClose" type="button" aria-label="Tutup"><span class="ms" aria-hidden="true">close</span></button>
+  </header>
+  <div class="cart-body" id="cartBody"></div>
+  <footer class="cart-foot">
+    <div class="cart-total"><span>Jumlah</span><b id="cartTotal">RM 0.00</b></div>
+    <button class="cart-checkout" id="cartCheckout" type="button">Teruskan ke Pembayaran</button>
+  </footer>
+</aside>
+
+<div class="p8-modal" id="checkoutModal" aria-hidden="true">
+  <div class="p8-modal-card">
+    <header>
+      <h3>Maklumat Pesanan</h3>
+      <button type="button" id="checkoutClose" aria-label="Tutup"><span class="ms" aria-hidden="true">close</span></button>
+    </header>
+    <form id="checkoutForm" autocomplete="on">
+      <div id="checkoutSummary" class="checkout-summary"></div>
+      <label>Nama penuh<input name="nama" required maxlength="80" placeholder="Nama penuh"></label>
+      <label>No. telefon<input name="telefon" required inputmode="tel" maxlength="16" placeholder="01X-XXXXXXX"></label>
+      <label>E-mel (pilihan)<input name="email" type="email" maxlength="120" placeholder="nama@email.com"></label>
+      <label>Alamat penuh<input name="alamat" required maxlength="300" placeholder="Alamat penghantaran"></label>
+      <label>Kaedah<input type="hidden" name="kaedah_kosong"><select name="ambil">
+        <option value="Penghantaran">Penghantaran (RM 8)</option>
+        <option value="Ambil di depot">Ambil sendiri di depot (percuma)</option>
+      </select></label>
+      <label>Nota<textarea name="nota" rows="2" maxlength="200" placeholder="Contoh: hantar waktu petang"></textarea></label>
+      <p class="checkout-note">Stok akan ditolak serta-merta semasa pesanan dibuat. Pesanan dibatalkan automatik jika tiada bayaran dalam 24 jam.</p>
+      <button type="submit" id="checkoutSubmit">Hantar Pesanan</button>
+    </form>
+  </div>
+</div>
+
+<div class="p8-modal" id="orderSuccess" aria-hidden="true"></div>
+
+<script src="config.js?v=20261114c"></script>
+<script src="script.js?v=20261114c"></script>
+<script src="cart.js?v=20261114c"></script>
   <!-- ADMIN BUTTON -->
   
   
