@@ -256,23 +256,50 @@
     });
   }
 
-  function initProducts() {
-    const api = CONFIG.apiUrl;
-    if (!api || !$('#productGrid')) return;
-    let settled = false;
-    window.__p8Products = function (data) {
-      if (settled) return;
-      settled = true;
-      try {
-        if (data && data.ok && data.products) applyProducts(data.products);
-      } catch (err) { /* senyap: kad kekal seperti asal */ }
+  function fetchProducts(api, onDone) {
+    const cb = '__p8Products' + Date.now() + Math.floor(Math.random() * 1000);
+    let finished = false;
+    const finish = data => {
+      if (finished) return;
+      finished = true;
+      try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+      onDone(data);
     };
+    window[cb] = function (data) { finish(data); };
     const script = document.createElement('script');
     script.async = true;
     script.src = api + (api.indexOf('?') >= 0 ? '&' : '?') +
-      'api=products&callback=__p8Products&t=' + Date.now();
-    script.onerror = function () { settled = true; };
+      'api=products&callback=' + cb + '&t=' + Date.now();
+    script.onerror = function () { finish(null); };
     document.head.appendChild(script);
+    setTimeout(function () { finish(null); }, 20000);
+  }
+
+  function initProducts() {
+    const api = CONFIG.apiUrl;
+    if (!api || !$('#productGrid')) return;
+    let attempt = 0;
+    let timer = null;
+
+    const run = function () {
+      fetchProducts(api, function (data) {
+        if (data && data.ok && data.products) {
+          attempt = 0;
+          try { applyProducts(data.products); } catch (err) {}
+        } else if (attempt < 2) {
+          attempt += 1;
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(run, 2500 * attempt);
+        }
+      });
+    };
+
+    run();
+    window.p8RefreshProducts = run;
+    setInterval(run, 45000);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) run();
+    });
   }
 
   function initReveal() {

@@ -222,11 +222,7 @@
   }
 
   function refreshProducts() {
-    if (typeof window.__p8Products !== 'function') return;
-    var s = document.createElement('script');
-    s.src = CONFIG.apiUrl + (CONFIG.apiUrl.indexOf('?') >= 0 ? '&' : '?') +
-      'api=products&callback=__p8Products&t=' + Date.now();
-    document.head.appendChild(s);
+    if (typeof window.p8RefreshProducts === 'function') window.p8RefreshProducts();
   }
 
   function toast(title, message, isError) {
