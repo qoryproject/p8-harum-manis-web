@@ -93,8 +93,98 @@
     }
   };
 
-  const TITLES = {
-    ms: 'P8 Harum Manis — Produk Harumanis & Sistem Inventori Perlis',
+  /* ── Terjemahan teks statik (seluruh halaman) ───────────── */
+  function normText(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  const MS_EN_RAW = {
+    'Langkau ke kandungan': 'Skip to content',
+    'TENTANG KAMI': 'ABOUT US',
+    'Inovasi Produk Hiliran': 'Downstream Product Innovation',
+    'Sebagai TVETpreneur 1.0 berpangkalan di Perlis, Precision-8 berkomitmen untuk memacu inovasi produk hiliran berasaskan Harumanis. Kami menggabungkan teknologi moden dengan keaslian alam untuk menghasilkan produk berkualiti tinggi, menjaga nilai tambah dan kelestarian alam sekitar.': 'As a TVETpreneur 1.0 based in Perlis, Precision-8 is committed to driving downstream innovation built on Harumanis. We combine modern technology with nature\'s authenticity to produce high-quality products while preserving added value and environmental sustainability.',
+    'KATEGORI': 'CATEGORIES',
+    'Produk Hiliran Harumanis': 'Harumanis Downstream Products',
+    'Snek Kering': 'Dried Snacks',
+    'Kelembutan yang luar biasa dan rasa asli Harumanis yang diproses secara freeze-dried untuk menjaga kekayaan nutrisi.': 'Exceptional softness with authentic Harumanis flavour, freeze-dried to preserve its rich nutrients.',
+    'Makanan & Minuman': 'Food & Beverages',
+    'Produk puri dan jem berkualiti tinggi yang menawarkan rasa manis dan asam yang seimbang, siap untuk dinikmati segera.': 'High-quality puree and jam products with a balanced sweet-and-sour taste, ready to enjoy.',
+    'Kosmetik & Penjagaan Kulit': 'Cosmetics & Skincare',
+    'Formula alami yang memanfaatkan kekayaan vitamin C dan antioksidan dari Harumanis untuk kecantikan kulit yang sihat.': 'Natural formulas harness the vitamin C and antioxidants of Harumanis for healthy, beautiful skin.',
+    'Harga runcit. Untuk pesanan borong atau menjadi ejen, hubungi kami.': 'Retail prices. For wholesale or agent enquiries, contact us.',
+    'Lihat Produk': 'View Product',
+    'PELUANG PERNIAGAAN': 'BUSINESS OPPORTUNITY',
+    'Peluang Rakan Niaga & Rangkaian Pengedaran Seluruh Malaysia': 'Business Partner & Nationwide Distribution Network',
+    'Kami di Precision 8 Enterprise sedang memperluaskan rangkaian pengedaran produk berasaskan Harumanis ke seluruh negara! Kami mencari pemilik kedai, ejen pengedar, atau rakan niaga di negeri-negeri lain yang berminat untuk membekal dan mengedar produk kami di kawasan anda.': 'Precision 8 Enterprise is expanding its Harumanis-based distribution network nationwide. We are looking for shop owners, distributors or business partners in other states who are interested in supplying and distributing our products in your area.',
+    'Pusat Pengedaran Beroperasi:': 'Active Distribution Centre:',
+    'Sertai Sebagai Rakan Niaga': 'Join as a Business Partner',
+    'PENYELESAIAN': 'SOLUTION',
+    'Masalah Yang Diselesaikan': 'Problems We Solve',
+    'Satu portal, satu pangkalan data — tanpa rekod berganda.': 'One portal, one database — no duplicate records.',
+    'Penukaran Unit': 'Unit Conversion',
+    'Stok masuk borong (kotak) ditukar automatik kepada unit runcit (pouch/paket), jadi baki masa nyata sentiasa tepat.': 'Wholesale stock (cartons) is converted automatically into retail units (pouches/packs), so the real-time balance is always accurate.',
+    'Risiko Luput / Rosak': 'Expiry / Damage Risk',
+    'Setiap batch ada nombor dan tarikh luput. Sistem memberi amaran awal dan memotong stok ikut FEFO.': 'Every batch carries an ID and expiry date. The system warns you early and deducts stock using FEFO.',
+    'Pesanan & Untung': 'Orders & Profit',
+    'Pesanan terus masuk ke inventori; COGS dan margin dikira automatik tanpa rekod dua kali.': 'Orders flow straight into inventory; COGS and margin are calculated automatically with no double entry.',
+    'Untuk Siapa Portal Ini': 'Who Is This Portal For',
+    'Rakan Niaga / Ejen (B2B)': 'Business Partners / Agents (B2B)',
+    'Lihat terma perniagaan dan daftar sebagai ejen pengedar di kawasan anda.': 'Review business terms and register as a distributor in your area.',
+    'Pelanggan Akhir (B2C)': 'End Customers (B2C)',
+    'Lihat produk dan buat tempahan terus melalui WhatsApp rasmi.': 'Browse products and place orders directly through official WhatsApp.',
+    'Tempah WhatsApp': 'Order via WhatsApp',
+    'Pentadbir / Pegawai Inventori': 'Administrators / Inventory Officers',
+    'Pantau IN/OUT, tarikh luput dan pengesahan bayaran di backend.': 'Monitor stock IN/OUT, expiry dates and payment verification in the backend.',
+    'Masuk Sistem': 'Enter System',
+    'KUALITI TERJAMIN': 'QUALITY ASSURED',
+    'Persijilan Produk': 'Product Certification',
+    'Produk kami melalui proses pemeriksaan dan pengiktirafan untuk memastikan keselamatan, kebersihan dan kualiti yang anda boleh percayai.': 'Our products go through inspection and recognition processes to ensure the safety, hygiene and quality you can trust.',
+    'Pengesahan status halal produk.': 'Verification of product halal status.',
+    'Keselamatan Makanan': 'Food Safety',
+    'Pematuhan piawaian kebersihan dan keselamatan.': 'Compliance with hygiene and safety standards.',
+    'Amalan Pengilangan Baik': 'Good Manufacturing Practice',
+    'Proses pengeluaran yang terkawal dan konsisten.': 'Controlled and consistent production processes.',
+    'Kawalan Kualiti': 'Quality Control',
+    'Pemeriksaan kualiti bagi setiap kelompok produk.': 'Quality inspection for every product batch.',
+    'Troli Anda': 'Your Cart',
+    'Jumlah': 'Total',
+    'Teruskan ke Pembayaran': 'Proceed to Checkout',
+    'Maklumat Pesanan': 'Order Details',
+    'Nama penuh': 'Full name',
+    'No. telefon': 'Phone number',
+    'E-mel (pilihan)': 'Email (optional)',
+    'Alamat penuh': 'Full address',
+    'Kaedah': 'Method',
+    'Penghantaran (RM 8)': 'Delivery (RM 8)',
+    'Ambil sendiri di depot (percuma)': 'Self-collect at depot (free)',
+    'Nota': 'Note',
+    'Stok akan ditolak serta-merta semasa pesanan dibuat. Pesanan dibatalkan automatik jika tiada bayaran dalam 24 jam.': 'Stock is deducted immediately when the order is placed. Orders are cancelled automatically if unpaid within 24 hours.',
+    'Hantar Pesanan': 'Place Order'
+  };
+
+  const MS_EN = {};
+  Object.keys(MS_EN_RAW).forEach(k => { MS_EN[normText(k)] = MS_EN_RAW[k]; });
+
+  function translateStatic(lang) {
+    const els = document.querySelectorAll('h1,h2,h3,h4,h5,p,span,li,small,strong,em,b,a,div,button,label');
+    Array.prototype.forEach.call(els, el => {
+      if (el.children.length) return;
+      if (el.hasAttribute('data-i18n') || el.hasAttribute('data-ms')) return;
+      const current = normText(el.textContent);
+      if (!current || current.length < 3) return;
+      if (lang === 'en') {
+        const en = MS_EN[current];
+        if (!en) return;
+        if (!el.dataset.msStatic) el.dataset.msStatic = el.textContent;
+        if (el.textContent !== en) el.textContent = en;
+      } else if (el.dataset.msStatic) {
+        el.textContent = el.dataset.msStatic;
+        delete el.dataset.msStatic;
+      }
+    });
+  }
+
+  const TITLES = {    ms: 'P8 Harum Manis — Produk Harumanis & Sistem Inventori Perlis',
     en: 'P8 Harum Manis — Harumanis Products & Inventory System, Perlis'
   };
   const DESCRIPTIONS = {
@@ -114,6 +204,7 @@
       if (text) el.textContent = text;
     });
     $$('[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    try { translateStatic(lang); } catch (err) {}
     document.title = TITLES[lang] || TITLES.ms;
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute('content', DESCRIPTIONS[lang] || DESCRIPTIONS.ms);
