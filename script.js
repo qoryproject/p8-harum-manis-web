@@ -180,6 +180,39 @@
     return s === 'aktif' || s === 'active';
   }
 
+  function applyPhoto(card, product) {
+    const media = card.querySelector('.product-media');
+    if (!media) return;
+    const foto = String(product.foto || '').trim();
+    let img = media.querySelector('img');
+    if (!img) {
+      if (!/^https?:\/\//i.test(foto)) return;
+      img = document.createElement('img');
+      img.alt = product.nama || 'Produk Harumanis';
+      img.loading = 'lazy';
+      media.insertBefore(img, media.firstChild);
+    }
+    if (!img.dataset.localSrc && !img.dataset.foto) {
+      img.dataset.localSrc = img.getAttribute('src') || '';
+    }
+    if (!/^https?:\/\//i.test(foto)) {
+      if (img.dataset.foto) {
+        img.removeAttribute('data-foto');
+        if (img.dataset.localSrc) img.src = img.dataset.localSrc;
+      }
+      return;
+    }
+    if (img.dataset.foto === foto) return;
+    img.dataset.foto = foto;
+    img.onerror = function () {
+      if (img.dataset.localSrc) {
+        img.removeAttribute('data-foto');
+        img.src = img.dataset.localSrc;
+      }
+    };
+    img.src = foto;
+  }
+
   function applyProducts(list) {
     if (!list || !list.length) return;
     const lang = document.documentElement.lang === 'en' ? 'en' : 'ms';
@@ -253,6 +286,9 @@
 
       // Nama rasmi sistem untuk mesej pesanan WhatsApp
       if (button && product.nama) button.dataset.product = product.nama;
+
+      // Gambar ikut foto produk dalam sistem (jika ada)
+      applyPhoto(card, product);
     });
   }
 
