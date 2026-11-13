@@ -186,7 +186,7 @@
     const bySku = {};
     list.forEach(p => { bySku[String(p.sku || '').toUpperCase()] = p; });
 
-    $$('#productGrid .product-card').forEach(card => {
+    $$('#productGrid .product-card, #produk-hiliran .product-card').forEach(card => {
       const nameEl = card.querySelector('h3');
       const cardName = nameEl ? nameEl.textContent : '';
       const sku = String(card.dataset.sku || '').toUpperCase();
