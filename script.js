@@ -166,20 +166,26 @@
   Object.keys(MS_EN_RAW).forEach(k => { MS_EN[normText(k)] = MS_EN_RAW[k]; });
 
   function translateStatic(lang) {
-    const els = document.querySelectorAll('h1,h2,h3,h4,h5,p,span,li,small,strong,em,b,a,div,button,label');
-    Array.prototype.forEach.call(els, el => {
-      if (el.children.length) return;
-      if (el.hasAttribute('data-i18n') || el.hasAttribute('data-ms')) return;
-      const current = normText(el.textContent);
-      if (!current || current.length < 3) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const parent = node.parentElement;
+      if (!parent) return;
+      const tag = parent.tagName;
+      if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return;
+      if (parent.closest('[data-i18n]') || parent.closest('[data-ms]')) return;
+      const raw = node.nodeValue || '';
+      const key = normText(raw);
+      if (!key || key.length < 3) return;
       if (lang === 'en') {
-        const en = MS_EN[current];
+        const en = MS_EN[key];
         if (!en) return;
-        if (!el.dataset.msStatic) el.dataset.msStatic = el.textContent;
-        if (el.textContent !== en) el.textContent = en;
-      } else if (el.dataset.msStatic) {
-        el.textContent = el.dataset.msStatic;
-        delete el.dataset.msStatic;
+        if (node.__msRaw === undefined) node.__msRaw = raw;
+        if (normText(raw) !== en) node.nodeValue = en;
+      } else if (node.__msRaw !== undefined) {
+        node.nodeValue = node.__msRaw;
+        delete node.__msRaw;
       }
     });
   }
