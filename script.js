@@ -256,8 +256,7 @@
     });
   }
 
-  function fetchProducts(api, onDone) {
-    const cb = '__p8Products' + Date.now() + Math.floor(Math.random() * 1000);
+  function fetchProducts(api, onDone) {    const cb = '__p8Products' + Date.now() + Math.floor(Math.random() * 1000);
     let finished = false;
     const finish = data => {
       if (finished) return;
@@ -275,17 +274,41 @@
     setTimeout(function () { finish(null); }, 20000);
   }
 
+  function readProductCache() {
+    try {
+      const raw = localStorage.getItem('p8_products_cache');
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      if (!obj || !obj.products || !obj.products.length) return null;
+      if (Date.now() - Number(obj.ts || 0) > 6 * 3600 * 1000) return null;
+      return obj.products;
+    } catch (e) { return null; }
+  }
+
+  function writeProductCache(products) {
+    try {
+      localStorage.setItem('p8_products_cache', JSON.stringify({ ts: Date.now(), products: products }));
+    } catch (e) {}
+  }
+
   function initProducts() {
     const api = CONFIG.apiUrl;
     if (!api || !$('#productGrid')) return;
     let attempt = 0;
     let timer = null;
 
+    // Guna status terakhir yang tersimpan supaya kad terus betul walaupun
+    // sambungan ke sistem lambat.
+    const cached = readProductCache();
+    if (cached) {
+      try { applyProducts(cached); } catch (e) {}
+    }
+
     const run = function () {
       fetchProducts(api, function (data) {
         if (data && data.ok && data.products) {
           attempt = 0;
-          try { applyProducts(data.products); } catch (err) {}
+          try { applyProducts(data.products); writeProductCache(data.products); } catch (err) {}
         } else if (attempt < 2) {
           attempt += 1;
           if (timer) clearTimeout(timer);
