@@ -283,6 +283,13 @@ img { max-width: 100%; display: block; }
 .products-note { display: flex; align-items: flex-start; gap: 8px; margin-top: 22px; font-size: 10.5px; color: var(--muted-dark); line-height: 1.6; }
 .products-note .ms { font-size: 15px; color: #0e8a60; }
 
+/* ── Status langsung dari sistem inventori ──────────────── */
+.product-card.p8-hidden { display: none !important; }
+.product-badge.sold { left: auto; right: 12px; background: #b3261e; color: #fff; }
+.product-card.is-out .product-media img { filter: grayscale(.5); }
+.product-card.is-out .price { color: var(--muted-dark); }
+.product-card.is-out .product-link { color: #b3261e; }
+
 /* ── Why ────────────────────────────────────────────────── */
 .why-section { background: var(--ink); padding: 76px 0 82px; }
 .feature-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }

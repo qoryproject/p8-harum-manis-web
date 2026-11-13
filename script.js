@@ -22,7 +22,7 @@
       'products.eyebrow': 'PRODUK PILIHAN', 'products.title': 'Harumanis & minuman dari depot.',
       'products.sub': 'Harga runcit. Untuk pesanan borong atau agen, hubungi kami.',
       'products.all': 'Semua', 'products.food': 'Makanan', 'products.drink': 'Minuman', 'products.fruit': 'Buah Segar',
-      'products.order': 'Pesan', 'products.note': 'Harga runcit untuk 2026. Pesanan borong, agen dan penghantaran boleh diatur melalui WhatsApp.',
+      'products.order': 'Pesan', 'products.ask': 'Tanya stok', 'products.sold': 'HABIS', 'products.note': 'Harga runcit untuk 2026. Pesanan borong, agen dan penghantaran boleh diatur melalui WhatsApp.',
       'cat.fruit': 'Buah Segar', 'cat.food': 'Makanan', 'cat.drink': 'Minuman',
       'why.eyebrow': 'SISTEM YANG BEKERJA', 'why.title': 'Bukan sekadar buku catatan.',
       'why.sub': 'Daripada scan pertama hingga laporan untung bersih, semua direkod dan boleh diaudit.',
@@ -64,7 +64,7 @@
       'products.eyebrow': 'SELECTED PRODUCTS', 'products.title': 'Harumanis & drinks from the depot.',
       'products.sub': 'Retail prices. For wholesale or agent orders, contact us.',
       'products.all': 'All', 'products.food': 'Food', 'products.drink': 'Drinks', 'products.fruit': 'Fresh Fruit',
-      'products.order': 'Order', 'products.note': 'Retail prices for 2026. Wholesale, agent and delivery orders can be arranged via WhatsApp.',
+      'products.order': 'Order', 'products.ask': 'Ask stock', 'products.sold': 'SOLD OUT', 'products.note': 'Retail prices for 2026. Wholesale, agent and delivery orders can be arranged via WhatsApp.',
       'cat.fruit': 'Fresh Fruit', 'cat.food': 'Food', 'cat.drink': 'Drinks',
       'why.eyebrow': 'A SYSTEM THAT WORKS', 'why.title': 'More than a notebook.',
       'why.sub': 'From the first scan to the net profit report, everything is recorded and auditable.',
@@ -156,6 +156,125 @@
     }));
   }
 
+  /* ── Sync status & stok produk dari sistem (API awam GAS) ── */
+  function normalizeName(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .replace(/\b(pcs|pouch|kotak|bungkus|kg|g|ml|l|unit|pack)\b/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function scoreMatch(cardName, productName) {
+    const a = normalizeName(cardName).split(' ').filter(Boolean);
+    const b = normalizeName(productName).split(' ').filter(Boolean);
+    if (!a.length || !b.length) return 0;
+    let hit = 0;
+    a.forEach(token => { if (token.length > 2 && b.indexOf(token) >= 0) hit += 1; });
+    return hit / a.length;
+  }
+
+  function isActiveProduct(product) {
+    const s = String(product.status || '').toLowerCase().trim();
+    return s === 'aktif' || s === 'active';
+  }
+
+  function applyProducts(list) {
+    if (!list || !list.length) return;
+    const lang = document.documentElement.lang === 'en' ? 'en' : 'ms';
+    const bySku = {};
+    list.forEach(p => { bySku[String(p.sku || '').toUpperCase()] = p; });
+
+    $$('#productGrid .product-card').forEach(card => {
+      const nameEl = card.querySelector('h3');
+      const cardName = nameEl ? nameEl.textContent : '';
+      const sku = String(card.dataset.sku || '').toUpperCase();
+      let product = sku ? bySku[sku] : null;
+
+      if (!product) {
+        let best = 0;
+        list.forEach(p => {
+          const score = scoreMatch(cardName, p.nama);
+          if (score > best) { best = score; product = p; }
+        });
+        if (best < 0.6) product = null;
+      }
+      if (!product) return;
+
+      // Produk dimatikan oleh Admin/Supervisor → sembunyikan kad
+      if (!isActiveProduct(product)) {
+        card.classList.add('p8-hidden');
+        return;
+      }
+      card.classList.remove('p8-hidden');
+
+      const media = card.querySelector('.product-media');
+      const button = card.querySelector('.js-order');
+      const label = button ? button.querySelector('[data-i18n]') : null;
+      const stock = Number(product.stok) || 0;
+
+      if (stock <= 0) {
+        card.classList.add('is-out');
+        if (media && !media.querySelector('.product-badge.sold')) {
+          const badge = document.createElement('span');
+          badge.className = 'product-badge sold';
+          badge.setAttribute('data-i18n', 'products.sold');
+          badge.textContent = lang === 'en' ? 'SOLD OUT' : 'HABIS';
+          media.appendChild(badge);
+        }
+        if (label) {
+          label.setAttribute('data-i18n', 'products.ask');
+          label.textContent = lang === 'en' ? 'Ask stock' : 'Tanya stok';
+        }
+      } else {
+        card.classList.remove('is-out');
+        if (media) {
+          const sold = media.querySelector('.product-badge.sold');
+          if (sold) sold.remove();
+        }
+        if (label && label.getAttribute('data-i18n') === 'products.ask') {
+          label.setAttribute('data-i18n', 'products.order');
+          label.textContent = lang === 'en' ? 'Order' : 'Pesan';
+        }
+      }
+
+      // Harga ikut sistem
+      const priceValue = Number(product.harga) || 0;
+      const priceEl = card.querySelector('.price');
+      if (priceEl && priceValue > 0) {
+        const suffix = priceEl.querySelector('small');
+        priceEl.textContent = 'RM ' + priceValue.toFixed(2);
+        if (suffix) {
+          priceEl.appendChild(document.createTextNode(' '));
+          priceEl.appendChild(suffix);
+        }
+      }
+
+      // Nama rasmi sistem untuk mesej pesanan WhatsApp
+      if (button && product.nama) button.dataset.product = product.nama;
+    });
+  }
+
+  function initProducts() {
+    const api = CONFIG.apiUrl;
+    if (!api || !$('#productGrid')) return;
+    let settled = false;
+    window.__p8Products = function (data) {
+      if (settled) return;
+      settled = true;
+      try {
+        if (data && data.ok && data.products) applyProducts(data.products);
+      } catch (err) { /* senyap: kad kekal seperti asal */ }
+    };
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = api + (api.indexOf('?') >= 0 ? '&' : '?') +
+      'api=products&callback=__p8Products&t=' + Date.now();
+    script.onerror = function () { settled = true; };
+    document.head.appendChild(script);
+  }
+
   function initReveal() {
     const items = $$('.reveal');
     if (!('IntersectionObserver' in window)) {
@@ -201,6 +320,7 @@
     initLang();
     initMenu();
     initFilters();
+    initProducts();
     initReveal();
     initLinks();
   }
