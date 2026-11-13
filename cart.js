@@ -269,11 +269,12 @@
         });
         foot.appendChild(btn);
       }
-      btn.disabled = out;
-      btn.classList.toggle('is-disabled', out);
-      btn.innerHTML = out
+      var html = out
         ? '<span class="ms" aria-hidden="true">block</span>' + T('Habis', 'Sold out')
         : '<span class="ms" aria-hidden="true">add_shopping_cart</span>' + T('Beli', 'Buy');
+      btn.disabled = out;
+      btn.classList.toggle('is-disabled', out);
+      if (btn.innerHTML !== html) btn.innerHTML = html;
     });
   }
 
@@ -309,8 +310,13 @@
 
     // Butang Beli perlu dipasang semula selepas kad disinkronkan
     var grid = $('#productGrid');
+    var mo = null;
     if (grid && 'MutationObserver' in window) {
-      var mo = new MutationObserver(function () { mountBuyButtons(); });
+      mo = new MutationObserver(function () {
+        mo.disconnect();
+        mountBuyButtons();
+        mo.observe(grid, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+      });
       mo.observe(grid, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     }
     $$('[data-lang]').forEach(function (b) {
