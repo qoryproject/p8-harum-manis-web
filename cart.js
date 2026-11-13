@@ -123,29 +123,15 @@
       '<span class="grand">' + T('Jumlah', 'Total') + '</span><b class="grand">' + money(subtotal() + ship) + '</b>';
   }
 
-  function jsonp(params) {
-    return new Promise(function (resolve, reject) {
-      var cbName = '__p8OrderCb' + Date.now();
-      var timer = null;
-      window[cbName] = function (data) {
-        clearTimeout(timer);
-        try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
-        resolve(data);
-      };
-      var qs = Object.keys(params).map(function (k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-      }).join('&');
-      var s = document.createElement('script');
-      s.src = CONFIG.apiUrl + (CONFIG.apiUrl.indexOf('?') >= 0 ? '&' : '?') + qs + '&callback=' + cbName;
-      s.onerror = function () {
-        clearTimeout(timer);
-        resolve({ ok: false, message: T('Sambungan ke sistem gagal.', 'Could not reach the system.') });
-      };
-      timer = setTimeout(function () {
-        resolve({ ok: false, message: T('Sambungan tamat masa. Cuba lagi.', 'Connection timed out. Try again.') });
-      }, 30000);
-      document.head.appendChild(s);
-    });
+  function apiOrder(payload) {
+    return fetch('/api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: payload.token, data: payload.data })
+    }).then(function (r) { return r.json(); })
+      .catch(function () {
+        return { success: false, message: T('Sambungan ke sistem gagal.', 'Could not reach the system.') };
+      });
   }
 
   function submitOrder(form) {
@@ -163,7 +149,7 @@
     if (!data.items.length) { toast(T('Troli kosong', 'Cart is empty'), '', true); return; }
     if (btn) { btn.disabled = true; btn.textContent = T('Menghantar…', 'Sending…'); }
 
-    jsonp({ api: 'order', token: data.token, data: JSON.stringify(data), t: Date.now() }).then(function (res) {
+    apiOrder({ token: data.token, data: data }).then(function (res) {
       if (btn) { btn.disabled = false; btn.textContent = T('Hantar Pesanan', 'Place Order'); }
       if (!res || res.success !== true) {
         toast(T('Pesanan gagal', 'Order failed'), (res && res.message) || T('Cuba lagi.', 'Try again.'), true);
