@@ -429,6 +429,32 @@
     </div>
   </section>
 
+  <!-- KATEGORI PRODUK -->
+  <section class="products-section" id="kategori">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow dark"><span class="ms" aria-hidden="true">category</span> <span>KATEGORI</span></div>
+          <h2>Produk Hiliran Harumanis</h2>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+        <article class="cat-card reveal">
+          <div class="cat-ico"><span class="ms" aria-hidden="true">grain</span></div>
+          <div class="cat-body"><h3>Snek Kering</h3><p style="color:var(--muted);line-height:1.7">Kelembutan yang luar biasa dan rasa asli Harumanis yang diproses secara freeze-dried untuk menjaga kekayaan nutrisi.</p></div>
+        </article>
+        <article class="cat-card reveal">
+          <div class="cat-ico"><span class="ms" aria-hidden="true">restaurant</span></div>
+          <div class="cat-body"><h3>Makanan &amp; Minuman</h3><p style="color:var(--muted);line-height:1.7">Produk puri dan jem berkualiti tinggi yang menawarkan rasa manis dan asam yang seimbang, siap untuk dinikmati segera.</p></div>
+        </article>
+        <article class="cat-card reveal">
+          <div class="cat-ico"><span class="ms" aria-hidden="true">spa</span></div>
+          <div class="cat-body"><h3>Kosmetik &amp; Penjagaan Kulit</h3><p style="color:var(--muted);line-height:1.7">Formula alami yang memanfaatkan kekayaan vitamin C dan antioksidan dari Harumanis untuk kecantikan kulit yang sihat.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- PRODUK HILIRAN -->
   <section class="products-section" id="produk-hiliran" style="background:var(--surface, #f8faf8)">
     <div class="container">
@@ -695,5 +721,17 @@
     .admin-fab{position:fixed;left:16px;bottom:16px;z-index:90;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:99px;background:rgba(8,19,15,.92);color:#eafaf3;border:1px solid rgba(78,222,163,.35);font-size:12px;font-weight:600;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
     .admin-fab:hover{border-color:#4edea3;transform:translateY(-1px)}
   </style>
-</body>
+<style>
+  .hero{position:relative;background:linear-gradient(180deg,rgba(4,12,9,.78),rgba(4,12,9,.88)),url('https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat}
+  .hero .hero-grid{grid-template-columns:1fr;justify-items:center;text-align:center;padding:110px 0 70px}
+  .hero .hero-copy{max-width:880px}
+  .hero .hero-visual{display:none}
+  .hero .hero-sub{margin-left:auto;margin-right:auto}
+  .hero .hero-actions,.hero .trust-list{justify-content:center}
+  .cat-card{background:var(--card,#fff);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+  .cat-card .cat-ico{height:150px;display:grid;place-items:center;font-size:46px;background:linear-gradient(135deg,rgba(4,120,87,.12),rgba(245,158,11,.18));color:#047857}
+  .cat-card .cat-body{padding:18px}
+  .cat-card h3{margin:0 0 8px}
+  @media(max-width:720px){.hero .hero-grid{padding:80px 0 50px}}
+</style></body>
 </html>
