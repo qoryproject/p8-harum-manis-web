@@ -525,6 +525,10 @@
           try {
             renderGrid(data.products);
             applyProducts(data.products);
+            if (data.shipping) {
+              window.P8_SHIPPING = data.shipping;
+              window.dispatchEvent(new CustomEvent('p8:shipping', { detail: data.shipping }));
+            }
             applyLang(document.documentElement.lang, false);
             writeProductCache(data.products);
           } catch (err) {}

@@ -27,9 +27,29 @@
 
   function count() { return cart.reduce(function (s, it) { return s + Number(it.qty || 0); }, 0); }
   function subtotal() { return cart.reduce(function (s, it) { return s + Number(it.harga || 0) * Number(it.qty || 0); }, 0); }
+  function shippingInfo() {
+    var s = window.P8_SHIPPING || {};
+    var on = (typeof s.on === 'boolean') ? s.on : true;
+    var fee = Number(s.fee);
+    if (!isFinite(fee)) fee = Number(CONFIG.shippingFee || 8);
+    return { on: on, fee: on ? fee : 0 };
+  }
+
   function shipping() {
     var mode = ($('#checkoutForm [name="ambil"]') || {}).value || 'Penghantaran';
-    return mode === 'Ambil di depot' ? 0 : Number(CONFIG.shippingFee || 8);
+    if (mode === 'Ambil di depot') return 0;
+    return shippingInfo().fee;
+  }
+
+  function updateShippingLabel() {
+    var sel = $('#checkoutForm [name="ambil"]');
+    if (!sel) return;
+    var info = shippingInfo();
+    var opt = sel.querySelector('option[value="Penghantaran"]');
+    if (!opt) return;
+    opt.textContent = info.on
+      ? T('Penghantaran (RM ' + info.fee.toFixed(2) + ')', 'Delivery (RM ' + info.fee.toFixed(2) + ')')
+      : T('Penghantaran (percuma)', 'Delivery (free)');
   }
 
   function addItem(sku, nama, harga) {
@@ -264,6 +284,11 @@
     loadCart();
     render();
     mountBuyButtons();
+    updateShippingLabel();
+    window.addEventListener('p8:shipping', function () {
+      updateShippingLabel();
+      updateCheckoutNote();
+    });
 
     var fab = $('#cartFab');
     if (fab) fab.addEventListener('click', openCart);
