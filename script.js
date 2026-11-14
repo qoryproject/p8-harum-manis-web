@@ -21,9 +21,9 @@
       'stats.sku': 'SKU aktif', 'stats.months': 'bulan data', 'stats.lang': 'bahasa', 'stats.cloud': 'cloud',
       'products.eyebrow': 'PRODUK PILIHAN', 'products.title': 'Harumanis & minuman dari depot.',
       'products.sub': 'Harga runcit. Untuk pesanan borong atau agen, hubungi kami.',
-      'products.all': 'Semua', 'products.food': 'Makanan', 'products.drink': 'Minuman', 'products.fruit': 'Buah Segar',
+      'products.all': 'Semua', 'products.food': 'Makanan', 'products.drink': 'Minuman', 'products.fruit': 'Buah Segar', 'products.cosmetic': 'Kosmetik',
       'products.order': 'Pesan', 'products.ask': 'Tanya stok', 'products.sold': 'HABIS', 'products.note': 'Harga runcit untuk 2026. Pesanan borong, agen dan penghantaran boleh diatur melalui WhatsApp.',
-      'cat.fruit': 'Buah Segar', 'cat.food': 'Makanan', 'cat.drink': 'Minuman',
+      'cat.fruit': 'Buah Segar', 'cat.food': 'Makanan', 'cat.drink': 'Minuman', 'cat.cosmetic': 'Kosmetik',
       'why.eyebrow': 'SISTEM YANG BEKERJA', 'why.title': 'Bukan sekadar buku catatan.',
       'why.sub': 'Daripada scan pertama hingga laporan untung bersih, semua direkod dan boleh diaudit.',
       'why.f1.title': 'Scan & FEFO', 'why.f1.desc': 'Scan barcode atau taip SKU. Batch paling hampir luput dikeluarkan dahulu secara automatik.',
@@ -63,9 +63,9 @@
       'stats.sku': 'active SKUs', 'stats.months': 'months of data', 'stats.lang': 'languages', 'stats.cloud': 'cloud',
       'products.eyebrow': 'SELECTED PRODUCTS', 'products.title': 'Harumanis & drinks from the depot.',
       'products.sub': 'Retail prices. For wholesale or agent orders, contact us.',
-      'products.all': 'All', 'products.food': 'Food', 'products.drink': 'Drinks', 'products.fruit': 'Fresh Fruit',
+      'products.all': 'All', 'products.food': 'Food', 'products.drink': 'Drinks', 'products.fruit': 'Fresh Fruit', 'products.cosmetic': 'Cosmetics',
       'products.order': 'Order', 'products.ask': 'Ask stock', 'products.sold': 'SOLD OUT', 'products.note': 'Retail prices for 2026. Wholesale, agent and delivery orders can be arranged via WhatsApp.',
-      'cat.fruit': 'Fresh Fruit', 'cat.food': 'Food', 'cat.drink': 'Drinks',
+      'cat.fruit': 'Fresh Fruit', 'cat.food': 'Food', 'cat.drink': 'Drinks', 'cat.cosmetic': 'Cosmetics',
       'why.eyebrow': 'A SYSTEM THAT WORKS', 'why.title': 'More than a notebook.',
       'why.sub': 'From the first scan to the net profit report, everything is recorded and auditable.',
       'why.f1.title': 'Scan & FEFO', 'why.f1.desc': 'Scan a barcode or type a SKU. The earliest-expiring batch is dispatched automatically.',
@@ -469,6 +469,7 @@
   function cardCategory(kategori) {
     const k = String(kategori || '').toLowerCase();
     if (k.indexOf('buah') >= 0) return { key: 'buah', i18n: 'cat.fruit', label: 'Buah Segar' };
+    if (k.indexOf('kosmetik') >= 0 || k.indexOf('penjagaan kulit') >= 0) return { key: 'kosmetik', i18n: 'cat.cosmetic', label: 'Kosmetik' };
     if (k === 'minuman' || k.indexOf('jus') >= 0) return { key: 'minuman', i18n: 'cat.drink', label: 'Minuman' };
     return { key: 'makanan', i18n: 'cat.food', label: 'Makanan' };
   }
