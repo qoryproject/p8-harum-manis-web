@@ -226,14 +226,19 @@
         (order.holdHours || 24) + ' hours.') + '</p>' +
       '<a class="order-wa" ' + (wa ? 'href="https://wa.me/' + wa + '?text=' + encodeURIComponent(text) + '" target="_blank" rel="noopener"' : 'href="#hubungi"') + '>' +
       '<span class="ms">chat</span> ' + T('Hantar bukti bayaran', 'Send payment proof') + '</a>' +
+      '<button type="button" id="successCloseBtn" class="order-close-btn">' + T('Tutup', 'Close') + '</button>' +
       '</div></div>';
     m.classList.add('open');
     m.setAttribute('aria-hidden', 'false');
-    var close = $('#successClose', m);
-    if (close) close.addEventListener('click', function () {
+    var closeFn = function () {
       m.classList.remove('open');
       m.setAttribute('aria-hidden', 'true');
-    });
+    };
+    var close = $('#successClose', m);
+    if (close) close.addEventListener('click', closeFn);
+    var closeBtn = $('#successCloseBtn', m);
+    if (closeBtn) closeBtn.addEventListener('click', closeFn);
+    m.addEventListener('click', function (e) { if (e.target === m) closeFn(); });
   }
 
   function refreshProducts() {
