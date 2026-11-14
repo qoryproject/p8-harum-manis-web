@@ -242,12 +242,11 @@
 
   function initFilters() {
     const chips = $$('[data-filter]');
-    const cards = $$('#productGrid .product-card');
     chips.forEach(chip => chip.addEventListener('click', () => {
       chips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
       const f = chip.dataset.filter;
-      cards.forEach(card => {
+      $$('#productGrid .product-card').forEach(card => {
         card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
       });
     }));
@@ -441,6 +440,70 @@
     } catch (e) {}
   }
 
+  const LOCAL_PHOTO = {
+    'PRE-MB-03': 'assets/products/cookies-harumanis.jpg',
+    'PRE-MB-01': 'assets/products/marshmallow-harumanis.jpg',
+    'PRE-MB-02': 'assets/products/jem-harumanis.jpg',
+    'PRE-MB-05': 'assets/products/acar-ikan-talang.jpg',
+    'PRE-MB-06': 'assets/products/serunding-daging.jpg',
+    'PRE-MB-04': 'assets/products/serunding-ayam.jpg',
+    'PRE-MB-07': 'assets/products/sirap-harumanis.jpg'
+  };
+
+  const LOCAL_DESC = {
+    'PRE-MB-03': ['Biskut rangup dengan inti manis Harumanis.', 'Crisp cookies with a sweet Harumanis filling.'],
+    'PRE-MB-01': ['Marshmallow lembut berperisa mangga Harumanis.', 'Soft marshmallow with Harumanis mango flavour.'],
+    'PRE-MB-02': ['Jem buah Harumanis, manis semula jadi.', 'Harumanis fruit jam with natural sweetness.'],
+    'PRE-MB-05': ['Acar rangup, masam manis, sesuai dengan nasi.', 'Crisp sweet-sour pickle, perfect with rice.'],
+    'PRE-MB-06': ['Serunding daging berempah dengan aroma Harumanis.', 'Spiced beef floss with Harumanis aroma.'],
+    'PRE-MB-04': ['Serunding ayam lembut, sedap bersama roti atau nasi.', 'Soft chicken floss, great with bread or rice.'],
+    'PRE-MB-07': ['Kordial pekat, campur air atau soda.', 'Concentrated cordial, mix with water or soda.']
+  };
+
+  function escHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function cardCategory(kategori) {
+    const k = String(kategori || '').toLowerCase();
+    if (k.indexOf('buah') >= 0) return { key: 'buah', i18n: 'cat.fruit', label: 'Buah Segar' };
+    if (k === 'minuman' || k.indexOf('jus') >= 0) return { key: 'minuman', i18n: 'cat.drink', label: 'Minuman' };
+    return { key: 'makanan', i18n: 'cat.food', label: 'Makanan' };
+  }
+
+  function renderGrid(products) {
+    const grid = $('#productGrid');
+    if (!grid) return;
+    const list = (products || []).filter(isActiveProduct);
+    if (!list.length) return;
+    list.sort((a, b) => String(a.sku).localeCompare(String(b.sku)));
+
+    grid.innerHTML = list.map(function (p) {
+      const cat = cardCategory(p.kategori);
+      const local = LOCAL_PHOTO[p.sku] || '';
+      const desc = LOCAL_DESC[p.sku] || ['Produk ' + (p.kategori || 'Harumanis'), 'Harumanis product'];
+      const price = Number(p.harga) || 0;
+      const media = local
+        ? '<img src="' + local + '" alt="' + escHtml(p.nama) + '" loading="lazy">'
+        : '<div class="product-art"><span class="ms" aria-hidden="true">local_mall</span><small>P8 HARUMANIS</small></div>';
+      return '<article class="product-card reveal in" data-cat="' + cat.key + '" data-sku="' + escHtml(p.sku) + '">' +
+        '<div class="product-media">' + media + '</div>' +
+        '<div class="product-body">' +
+          '<span class="product-cat" data-i18n="' + cat.i18n + '">' + cat.label + '</span>' +
+          '<h3>' + escHtml(p.nama) + '</h3>' +
+          '<p data-ms="' + escHtml(desc[0]) + '" data-en="' + escHtml(desc[1]) + '">' + escHtml(desc[0]) + '</p>' +
+          '<div class="product-foot">' +
+            '<span class="price">RM ' + price.toFixed(2) + '</span>' +
+            '<button class="product-link js-order" data-product="' + escHtml(p.nama) + '" type="button">' +
+              '<span data-i18n="products.order">Pesan</span> <span class="ms" aria-hidden="true">arrow_outward</span>' +
+            '</button>' +
+          '</div>' +
+        '</div></article>';
+    }).join('');
+  }
+
   function initProducts() {
     const api = CONFIG.apiUrl;
     if (!api || !$('#productGrid')) return;
@@ -458,7 +521,12 @@
       fetchProducts(api, function (data) {
         if (data && data.ok && data.products) {
           attempt = 0;
-          try { applyProducts(data.products); writeProductCache(data.products); } catch (err) {}
+          try {
+            renderGrid(data.products);
+            applyProducts(data.products);
+            applyLang(document.documentElement.lang, false);
+            writeProductCache(data.products);
+          } catch (err) {}
         } else if (attempt < 2) {
           attempt += 1;
           if (timer) clearTimeout(timer);
