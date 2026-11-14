@@ -36,6 +36,16 @@
     }
   ],
   "redirects": [
-    { "source": "/system", "destination": "/app.html", "permanent": false }
+    { "source": "/system", "destination": "/app.html", "permanent": false },
+    {
+      "source": "/sistem",
+      "destination": "https://script.google.com/macros/s/AKfycbxNF5gpJyvnTslfvRBGBKiGKA8OogheisbU1IbzvhqoL1mfwuQgTCD-mYlQFZNENXkh/exec",
+      "permanent": false
+    },
+    {
+      "source": "/masuk",
+      "destination": "https://script.google.com/macros/s/AKfycbxNF5gpJyvnTslfvRBGBKiGKA8OogheisbU1IbzvhqoL1mfwuQgTCD-mYlQFZNENXkh/exec",
+      "permanent": false
+    }
   ]
 }
