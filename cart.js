@@ -206,11 +206,20 @@
       '<p class="order-total">' + money(order.total) + ' · ' + (order.items || []).length + ' ' + T('item', 'items') + '</p>' +
       '<div class="order-bank">' +
       '<h4>' + T('Arahan bayaran', 'Payment instructions') + '</h4>' +
-      (bankAccount
-        ? '<p><span>' + T('Bank', 'Bank') + '</span><b>' + (bankName || '—') + '</b></p>' +
-          '<p><span>' + T('No. akaun', 'Account no.') + '</span><b>' + bankAccount + '</b></p>' +
-          '<p><span>' + T('Nama akaun', 'Account name') + '</span><b>' + (bankHolder || '—') + '</b></p>'
-        : '<p class="muted">' + T('Admin akan hubungi anda melalui WhatsApp untuk arahan bayaran.', 'Admin will contact you on WhatsApp with payment details.') + '</p>') +
+      (CONFIG.payQr
+        ? '<div class="order-qr">' +
+            '<div class="order-qr-head"><span class="ms">qr_code_2</span><b>' + (CONFIG.payMethod || 'DuitNow QR') + '</b></div>' +
+            '<img src="' + CONFIG.payQr + '" alt="DuitNow QR">' +
+            '<p class="order-qr-name">' + (CONFIG.payName || '') + '</p>' +
+            '<p class="order-qr-amount">' + money(order.total) + '</p>' +
+            '<p class="order-qr-hint">' + T('Imbas dengan mana-mana aplikasi bank (GXBank, Maybank, CIMB, Touch ’n Go…)', 'Scan with any banking app (GXBank, Maybank, CIMB, Touch ’n Go…)') + '</p>' +
+            '<a class="order-qr-dl" href="' + CONFIG.payQr + '" download="P8-DuitNow-QR.jpg"><span class="ms">download</span> ' + T('Simpan QR', 'Save QR') + '</a>' +
+          '</div>'
+        : bankAccount
+          ? '<p><span>' + T('Bank', 'Bank') + '</span><b>' + (bankName || '—') + '</b></p>' +
+            '<p><span>' + T('No. akaun', 'Account no.') + '</span><b>' + bankAccount + '</b></p>' +
+            '<p><span>' + T('Nama akaun', 'Account name') + '</span><b>' + (bankHolder || '—') + '</b></p>'
+          : '<p class="muted">' + T('Admin akan hubungi anda melalui WhatsApp untuk arahan bayaran.', 'Admin will contact you on WhatsApp with payment details.') + '</p>') +
       '</div>' +
       '<p class="order-note">' + T('Stok telah ditolak. Pesanan akan dibatalkan automatik jika tiada bayaran dalam ' +
         (order.holdHours || 24) + ' jam.', 'Stock has been deducted. The order is cancelled automatically if unpaid within ' +

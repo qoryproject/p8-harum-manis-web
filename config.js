@@ -16,6 +16,9 @@ window.P8_CONFIG = {
   shippingFee: 8,
 
   // Maklumat bayaran yang dipaparkan selepas pesanan
+  payMethod: 'DuitNow QR (GXBank)',
+  payQr: 'assets/payment-qr.jpg',
+  payName: 'Ahmad Bukhori Bin Yusof',
   bankName: 'Maybank',
   bankAccount: '',
   bankHolder: 'PRECISION 8 ENTERPRISE',
