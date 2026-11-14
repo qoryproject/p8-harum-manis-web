@@ -538,3 +538,7 @@ img { max-width: 100%; display: block; }
 .order-close-btn:hover{background:#f4f8f6}
 .p8-modal-card header{position:sticky;top:0;background:#fff;z-index:3}
 .order-success header{position:sticky;top:0}
+#checkoutCancel{margin-top:2px}
+.p8-modal{padding:10px}
+.p8-modal-card header{box-shadow:0 6px 14px rgba(15,31,24,.06)}
+@media(max-width:720px){.p8-modal-card header{padding:14px 16px}#checkoutForm{padding:14px 16px 18px}}

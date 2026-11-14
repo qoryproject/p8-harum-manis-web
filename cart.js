@@ -314,6 +314,8 @@
     if (co) co.addEventListener('click', openCheckout);
     var cc = $('#checkoutClose');
     if (cc) cc.addEventListener('click', closeCheckout);
+    var cancelBtn = $('#checkoutCancel');
+    if (cancelBtn) cancelBtn.addEventListener('click', closeCheckout);
 
     var form = $('#checkoutForm');
     if (form) {
