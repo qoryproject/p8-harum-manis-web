@@ -1,4 +1,4 @@
-/* P8 Harum Manis — troli & pesanan web (auto tolak stok) */
+﻿/* P8 Harum Manis — troli & pesanan web (auto tolak stok) */
 (function () {
   'use strict';
 
@@ -212,7 +212,7 @@
             '<img src="' + CONFIG.payQr + '" alt="DuitNow QR">' +
             '<p class="order-qr-name">' + (CONFIG.payName || '') + '</p>' +
             '<p class="order-qr-amount">' + money(order.total) + '</p>' +
-            '<p class="order-qr-hint">' + T('Imbas dengan mana-mana aplikasi bank (GXBank, Maybank, CIMB, Touch ’n Go…)', 'Scan with any banking app (GXBank, Maybank, CIMB, Touch ’n Go…)') + '</p>' +
+            '<p class="order-qr-hint">' + T('Imbas dengan mana-mana aplikasi bank (BSN, Maybank, CIMB, Touch ’n Go…)', 'Scan with any banking app (BSN, Maybank, CIMB, Touch ’n Go…)') + '</p>' +
             '<a class="order-qr-dl" href="' + CONFIG.payQr + '" download="P8-DuitNow-QR.jpg"><span class="ms">download</span> ' + T('Simpan QR', 'Save QR') + '</a>' +
           '</div>'
         : bankAccount
